@@ -19,7 +19,7 @@ export default function Navbar() {
             placeholder="Search products..."
             className="flex-1 px-4 py-2 text-black bg-transparent outline-none"
           />
-          <button className="flex items-center gap-2 bg-red-600 text-white px-4 py-2 h-full rounded-full">
+          <button className="flex items-center gap-2 bg-red-600 text-white px-4 py-2 h-full rounded-r-full">
             <Search size={18} /> Search
           </button>
         </div>
