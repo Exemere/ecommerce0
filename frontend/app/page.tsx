@@ -1,4 +1,5 @@
 import CategoryCard from "./categories/CategoryCard";
+import Hotdeals from "./products/Hotdeals";
 import ProductCarousel from "./products/ProductCarousel";
 import BannerSlider from "./slider/page";
 
@@ -12,12 +13,9 @@ export default function Home() {
         <CategoryCard title="Cameras" image="/img/shop02.png" />
       </section>
 
-      {/* New Products Section */}
+      {/* Hotdeals Section */}
       <section className="container mx-auto py-12">
-        <h2 className="text-2xl font-bold mb-6 text-gray-800">
-          Hot Deals
-        </h2>
-        <ProductCarousel />
+        <Hotdeals />
       </section>
       {/*Sliding Banners Section */}
       <section>

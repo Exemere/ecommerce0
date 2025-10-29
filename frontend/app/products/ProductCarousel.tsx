@@ -1,10 +1,10 @@
 import ProductCard from "./ProductCard";
 
 const products = [
-  { name: "Laptop Pro", price: 980, oldPrice: 1200, img: "/img/product01.png" },
-  { name: "Smartphone X", price: 799, oldPrice: 899, img: "/img/product02.png" },
-  { name: "Camera Pro", price: 650, img: "/img/product03.png" },
-  { name: "Headphones", price: 120, img: "/img/product04.png" },
+  { name: "Laptop Pro", description: "High-performance laptop", price: 980, oldPrice: 1200, img: "/img/product01.png" },
+  { name: "Smartphone X", description: "Latest smartphone model", price: 799, oldPrice: 899, img: "/img/product02.png" },
+  { name: "Camera Pro", description: "Professional-grade camera", price: 650, img: "/img/product03.png" },
+  { name: "Headphones", description: "Noise-cancelling headphones", price: 120, img: "/img/product04.png" },
 ];
 
 export default function ProductCarousel() {
