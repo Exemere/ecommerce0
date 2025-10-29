@@ -9,7 +9,7 @@ export default function Navbar() {
       <div className="container mx-auto flex justify-between items-center py-4 px-6">
         {/* Logo */}
         <Link href="/" className="text-2xl font-bold">
-          Electro
+          <img src="/img/logo.png" alt="logo" className="w-30 h-10" />
         </Link>
 
         {/* Search */}
@@ -27,9 +27,6 @@ export default function Navbar() {
 
         {/* Icons */}
         <div className="flex items-center gap-6">
-          <Link href="/wishlist" className="flex items-center gap-2">
-            <Heart size={20} /> Wishlist
-          </Link>
           <Link href="/cart" className="flex items-center gap-2">
             <ShoppingCart size={20} /> Cart (3)
           </Link>
@@ -44,7 +41,6 @@ export default function Navbar() {
         <ul className="container mx-auto flex gap-6 py-3 px-6">
           <li><Link href="/">Home</Link></li>
           <li><Link href="/deals">Hot Deals</Link></li>
-          <li><Link href="/categories">Categories</Link></li>
           <li><Link href="/laptops">Laptops</Link></li>
           <li><Link href="/smartphones">Smartphones</Link></li>
           <li><Link href="/cameras">Cameras</Link></li>

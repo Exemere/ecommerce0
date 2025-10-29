@@ -34,11 +34,7 @@ export default function BannerSlider() {
                 className="object-cover"
                 priority
               />
-              <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                <h2 className="text-white text-3xl md:text-4xl font-bold drop-shadow-lg">
-                  {banner.alt}
-                </h2>
-              </div>
+              
             </div>
           </SwiperSlide>
         ))}

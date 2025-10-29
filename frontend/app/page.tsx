@@ -2,6 +2,8 @@ import CategoryCard from "./categories/CategoryCard";
 import Hotdeals from "./products/Hotdeals";
 import ProductCarousel from "./products/ProductCarousel";
 import BannerSlider from "./slider/page";
+import Like from "./products/Like";
+import Service from "./ui/Service";
 
 export default function Home() {
   return (
@@ -20,6 +22,13 @@ export default function Home() {
       {/*Sliding Banners Section */}
       <section>
         <BannerSlider />
+      </section>
+      {/*You May Like Section */}
+      <section>
+        <Like/>
+      </section>
+      <section>
+        <Service/>
       </section>
 
       {/* Newsletter Section (placeholder for future use) */}

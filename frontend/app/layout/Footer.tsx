@@ -4,7 +4,7 @@ export default function Footer() {
       <div className="container mx-auto grid md:grid-cols-4 gap-6">
         <div>
           <h3 className="font-bold text-lg mb-4">About Us</h3>
-          <p>Electro is your trusted e-commerce platform for gadgets and accessories.</p>
+          <p>Dredge is your trusted e-commerce platform for gadgets and accessories.</p>
         </div>
         <div>
           <h3 className="font-bold text-lg mb-4">Categories</h3>
@@ -26,13 +26,13 @@ export default function Footer() {
         </div>
         <div>
           <h3 className="font-bold text-lg mb-4">Contact</h3>
-          <p>1734 Stonecoal Road</p>
+          <p>1734 Mombasa Road</p>
           <p>+021-95-51-84</p>
-          <p>email@email.com</p>
+          <p>info@dredge.com</p>
         </div>
       </div>
       <div className="text-center mt-6 text-sm text-gray-400">
-        © {new Date().getFullYear()} Electro. All rights reserved.
+        © {new Date().getFullYear()} Dredge. All rights reserved.
       </div>
     </footer>
   );

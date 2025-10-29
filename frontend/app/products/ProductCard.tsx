@@ -10,9 +10,8 @@ interface Props {
 
 export default function ProductCard({ name, price, description, img }: Props) {
   return (
-    <div className="border rounded-lg p-4 shadow hover:shadow-lg transition bg-white">
+    <div className="border rounded-lg p-2 shadow hover:shadow-lg transition bg-white">
       <Image src={img} alt={name} width={200} height={200} className="mx-auto" />
-      <h3 className="mt-4 font-light text-black">{name}</h3>
       <h4 className="mt-4 font-light text-black">{description}</h4>
       <div className="mt-2 text-black font-bold">
         Ksh {price}

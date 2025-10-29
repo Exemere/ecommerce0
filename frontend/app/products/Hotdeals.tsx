@@ -1,5 +1,6 @@
 import ProductCard from "./ProductCard";
 import FlashSaleTimer from "../ui/Timer";
+import { CloudLightning } from "lucide-react";
 
 const products = [
   { name: "Laptop Pro", description: "High-performance laptop", price: 980, oldPrice: 1200, img: "/img/product01.png" },
@@ -14,9 +15,9 @@ export default function HotDealsSection() {
   return (
     <div className="p-5 md:p-10 bg-white rounded-lg shadow">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-800">Hot Deals</h2>
+        <h2 className="text-2xl font-bold text-gray-800">Hot Deals !!!<CloudLightning size={20} /></h2>
 
-        <div className="flex items-center gap-4 mt-2 md:mt-0">
+        <div className="flex items-center gap-1 mt-2 md:mt-0">
           <FlashSaleTimer />
 
           <button className="text-white bg-red-600 hover:bg-red-700 px-4 py-1.5 rounded-full text-sm font-medium transition">
