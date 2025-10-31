@@ -1,9 +1,21 @@
 "use client";
 
+import { useState, FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ShoppingCart, Heart, User, Search } from "lucide-react";
+import { ShoppingCart, User, Search } from "lucide-react";
 
 export default function Navbar() {
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const router = useRouter();
+
+  const handleSearch = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (searchQuery.trim() !== "") {
+      router.push(`/search?query=${encodeURIComponent(searchQuery)}`);
+    }
+  };
+
   return (
     <header className="bg-gray-900 text-white">
       <div className="container mx-auto flex justify-between items-center py-4 px-6">
@@ -13,17 +25,24 @@ export default function Navbar() {
         </Link>
 
         {/* Search */}
-        <div className="flex items-center bg-amber-50 rounded-full overflow-hidden w-100 mx-auto">
+        <form
+          onSubmit={handleSearch}
+          className="flex items-center bg-amber-50 rounded-full overflow-hidden w-100 mx-auto"
+        >
           <input
             type="text"
             placeholder="Search products..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="flex-1 px-4 py-2 text-black bg-transparent outline-none"
           />
-          <button className="flex items-center gap-2 bg-red-600 text-white px-4 py-2 h-full rounded-r-full">
+          <button
+            type="submit"
+            className="flex items-center gap-2 bg-red-600 text-white px-4 py-2 h-full rounded-r-full"
+          >
             <Search size={18} /> Search
           </button>
-        </div>
-
+        </form>
 
         {/* Icons */}
         <div className="flex items-center gap-6">

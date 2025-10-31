@@ -1,46 +1,116 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from flask_bcrypt import Bcrypt
+from sqlalchemy.ext.hybrid import hybrid_property
 
 db = SQLAlchemy()
+bcrypt = Bcrypt()
 
-class Category(db.Model):
-    __tablename__ = "categories"
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False, unique=True)
-    products = db.relationship("Product", backref="category", lazy=True)
-
-class Product(db.Model):
-    __tablename__ = "products"
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(200), nullable=False)
-    price = db.Column(db.Float, nullable=False)
-    old_price = db.Column(db.Float, nullable=True)
-    image = db.Column(db.String(300), nullable=False)
-    category_id = db.Column(db.Integer, db.ForeignKey("categories.id"), nullable=False)
-
+# -------------------------------
+# USER MODEL
+# -------------------------------
 class User(db.Model):
-    __tablename__ = "users"
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(100), nullable=False, unique=True)
-    email = db.Column(db.String(150), nullable=False, unique=True)
-    password = db.Column(db.String(200), nullable=False)
-    orders = db.relationship("Order", backref="user", lazy=True)
+    full_name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    number = db.Column(db.String(20), nullable=False)  # store as string, not int
+    location = db.Column(db.String(120))
+    _password_hash = db.Column(db.String(200), nullable=False)
 
-class Order(db.Model):
-    __tablename__ = "orders"
-    id = db.Column(db.Integer, primary_key=True)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    total = db.Column(db.Float, default=0.0)
-    status = db.Column(db.String(50), default="pending")
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    items = db.relationship("OrderItem", backref="order", lazy=True)
+    # Relationships
+    orders = db.relationship('Order', back_populates='user', cascade='all, delete-orphan')
+    cart_items = db.relationship('Cart', back_populates='user', cascade='all, delete-orphan')
 
-class OrderItem(db.Model):
-    __tablename__ = "order_items"
+    @hybrid_property
+    def password_hash(self):
+        raise AttributeError('Password hash may not be viewed')
+
+    @password_hash.setter
+    def password_hash(self, password):
+        password_hash = bcrypt.generate_password_hash(password.encode('utf-8'))
+        self._password_hash = password_hash.decode('utf-8')
+
+    def authenticate(self, password):
+        return bcrypt.check_password_hash(self._password_hash, password.encode('utf-8'))
+
+
+# -------------------------------
+# PRODUCTS MODEL
+# -------------------------------
+class Product(db.Model):
+    __tablename__ = 'products'
     id = db.Column(db.Integer, primary_key=True)
-    quantity = db.Column(db.Integer, nullable=False, default=1)
+    image = db.Column(db.String, nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
+    name = db.Column(db.String(100), nullable=False)
+    model = db.Column(db.String(100))
+    specs = db.Column(db.Text)
+    brand = db.Column(db.String(50))
     price = db.Column(db.Float, nullable=False)
-    order_id = db.Column(db.Integer, db.ForeignKey("orders.id"), nullable=False)
-    product_id = db.Column(db.Integer, db.ForeignKey("products.id"), nullable=False)
-    product = db.relationship("Product")
+    quantity = db.Column(db.Integer, default=0)
 
+    # Relationships
+    category = db.relationship('Category', back_populates='products')
+    carts = db.relationship('Cart', back_populates='product')
+    order_items = db.relationship('OrderItem', back_populates='product')
+
+
+# -------------------------------
+# CATEGORY MODEL
+# -------------------------------
+class Category(db.Model):
+    __tablename__ = 'category'
+    id = db.Column(db.Integer, primary_key=True)
+    category = db.Column(db.String(50), nullable=False)
+    image = db.Column(db.String)
+    
+    # Relationships
+    products = db.relationship('Product', back_populates='category', cascade='all, delete-orphan')
+
+
+# -------------------------------
+# ORDER MODEL
+# -------------------------------
+class Order(db.Model):
+    __tablename__ = 'orders'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    amount = db.Column(db.Float, nullable=False)
+    order_date = db.Column(db.DateTime, default=datetime.utcnow)
+    status = db.Column(db.String(50), default='Pending')
+
+    # Relationships
+    user = db.relationship('User', back_populates='orders')
+    items = db.relationship('OrderItem', back_populates='order', cascade='all, delete-orphan')
+
+
+# -------------------------------
+# ORDER ITEMS MODEL
+# -------------------------------
+class OrderItem(db.Model):
+    __tablename__ = 'order_items'
+    id = db.Column(db.Integer, primary_key=True)
+    order_id = db.Column(db.Integer, db.ForeignKey('orders.id'))
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
+    quantity = db.Column(db.Integer, nullable=False)
+    price = db.Column(db.Float, nullable=False)
+
+    # Relationships
+    order = db.relationship('Order', back_populates='items')
+    product = db.relationship('Product', back_populates='order_items')
+
+
+# -------------------------------
+# CART MODEL
+# -------------------------------
+class Cart(db.Model):
+    __tablename__ = 'cart'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
+    quantity = db.Column(db.Integer, default=1)
+
+    # Relationships
+    user = db.relationship('User', back_populates='cart_items')
+    product = db.relationship('Product', back_populates='carts')

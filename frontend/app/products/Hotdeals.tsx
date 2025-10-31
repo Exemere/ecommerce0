@@ -3,12 +3,12 @@ import FlashSaleTimer from "../ui/Timer";
 import { CloudLightning } from "lucide-react";
 
 const products = [
-  { name: "Laptop Pro", description: "High-performance laptop", price: 980, oldPrice: 1200, img: "/img/product01.png" },
-  { name: "Smartphone X", description: "Latest smartphone model", price: 799, oldPrice: 899, img: "/img/product02.png" },
-  { name: "Camera Pro", description: "Professional-grade camera", price: 650, img: "/img/product03.png" },
-  { name: "Headphones", description: "Noise-cancelling headphones", price: 120, img: "/img/product04.png" },
-  { name: "Smartwatch", description: "Feature-packed smartwatch", price: 220, oldPrice: 300, img: "/img/product05.png" },
-  { name: "Tablet Air", description: "Lightweight and powerful tablet", price: 499, oldPrice: 650, img: "/img/product06.png" },
+  { id: 1, name: "Laptop Pro", description: "High-performance laptop", price: 980, oldPrice: 1200, img: "/img/product01.png" },
+  { id: 2, name: "Smartphone X", description: "Latest smartphone model", price: 799, oldPrice: 899, img: "/img/product02.png" },
+  { id: 3, name: "Camera Pro", description: "Professional-grade camera", price: 650, img: "/img/product03.png" },
+  { id: 4, name: "Headphones", description: "Noise-cancelling headphones", price: 120, img: "/img/product04.png" },
+  { id: 5, name: "Smartwatch", description: "Feature-packed smartwatch", price: 220, oldPrice: 300, img: "/img/product05.png" },
+  { id: 6, name: "Tablet Air", description: "Lightweight and powerful tablet", price: 499, oldPrice: 650, img: "/img/product06.png" },
 ];
 
 export default function HotDealsSection() {
